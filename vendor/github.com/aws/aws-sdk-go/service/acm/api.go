@@ -443,12 +443,11 @@ func (c *ACM) GetCertificateRequest(input *GetCertificateInput) (req *request.Re
 
 // GetCertificate API operation for AWS Certificate Manager.
 //
-// Retrieves a certificate specified by an ARN and its certificate chain . The
-// chain is an ordered list of certificates that contains the end entity certificate,
-// intermediate certificates of subordinate CAs, and the root certificate in
-// that order. The certificate and certificate chain are base64 encoded. If
-// you want to decode the certificate to see the individual fields, you can
-// use OpenSSL.
+// Retrieves an Amazon-issued certificate and its certificate chain. The chain
+// consists of the certificate of the issuing CA and the intermediate certificates
+// of any other subordinate CAs. All of the certificates are base64 encoded.
+// You can use OpenSSL (https://wiki.openssl.org/index.php/Command_Line_Utilities)
+// to decode the certificates and inspect individual fields.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -604,7 +603,7 @@ func (c *ACM) ImportCertificateRequest(input *ImportCertificateInput) (req *requ
 //   caller's account cannot be found.
 //
 //   * LimitExceededException
-//   An ACM limit has been exceeded.
+//   An ACM quota has been exceeded.
 //
 //   * InvalidTagException
 //   One or both of the values that make up the key-value pair is not valid. For
@@ -1123,7 +1122,7 @@ func (c *ACM) RequestCertificateRequest(input *RequestCertificateInput) (req *re
 //
 // Returned Error Types:
 //   * LimitExceededException
-//   An ACM limit has been exceeded.
+//   An ACM quota has been exceeded.
 //
 //   * InvalidDomainValidationOptionsException
 //   One or more values in the DomainValidationOption structure is incorrect.
@@ -1329,7 +1328,7 @@ func (c *ACM) UpdateCertificateOptionsRequest(input *UpdateCertificateOptionsInp
 //   caller's account cannot be found.
 //
 //   * LimitExceededException
-//   An ACM limit has been exceeded.
+//   An ACM quota has been exceeded.
 //
 //   * InvalidStateException
 //   Processing has reached an invalid state.
@@ -1951,6 +1950,11 @@ type DomainValidation struct {
 
 	// Contains the CNAME record that you add to your DNS database for domain validation.
 	// For more information, see Use DNS to Validate Domain Ownership (https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html).
+	//
+	// Note: The CNAME information that you need does not include the name of your
+	// domain. If you include your domain name in the DNS database CNAME record,
+	// validation fails. For example, if the name is "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com",
+	// only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
 	ResourceRecord *ResourceRecord `type:"structure"`
 
 	// The domain name that ACM used to send domain validation emails.
@@ -2356,12 +2360,12 @@ func (s *GetCertificateInput) SetCertificateArn(v string) *GetCertificateInput {
 type GetCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
-	// String that contains the ACM certificate represented by the ARN specified
-	// at input.
+	// The ACM-issued certificate corresponding to the ARN specified as input.
 	Certificate *string `min:"1" type:"string"`
 
-	// The certificate chain that contains the root certificate issued by the certificate
-	// authority (CA).
+	// Certificates forming the requested certificate's chain of trust. The chain
+	// consists of the certificate of the issuing CA and the intermediate certificates
+	// of any other subordinate CAs.
 	CertificateChain *string `min:"1" type:"string"`
 }
 
@@ -2527,8 +2531,8 @@ func (s *ImportCertificateOutput) SetCertificateArn(v string) *ImportCertificate
 
 // One or more of of request parameters specified is not valid.
 type InvalidArgsException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2545,7 +2549,7 @@ func (s InvalidArgsException) GoString() string {
 
 func newErrorInvalidArgsException(v protocol.ResponseMetadata) error {
 	return &InvalidArgsException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2573,18 +2577,18 @@ func (s InvalidArgsException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidArgsException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidArgsException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The requested Amazon Resource Name (ARN) does not refer to an existing resource.
 type InvalidArnException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2601,7 +2605,7 @@ func (s InvalidArnException) GoString() string {
 
 func newErrorInvalidArnException(v protocol.ResponseMetadata) error {
 	return &InvalidArnException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2629,18 +2633,18 @@ func (s InvalidArnException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidArnException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidArnException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // One or more values in the DomainValidationOption structure is incorrect.
 type InvalidDomainValidationOptionsException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2657,7 +2661,7 @@ func (s InvalidDomainValidationOptionsException) GoString() string {
 
 func newErrorInvalidDomainValidationOptionsException(v protocol.ResponseMetadata) error {
 	return &InvalidDomainValidationOptionsException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2685,18 +2689,18 @@ func (s InvalidDomainValidationOptionsException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidDomainValidationOptionsException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidDomainValidationOptionsException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // An input parameter was invalid.
 type InvalidParameterException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2713,7 +2717,7 @@ func (s InvalidParameterException) GoString() string {
 
 func newErrorInvalidParameterException(v protocol.ResponseMetadata) error {
 	return &InvalidParameterException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2741,18 +2745,18 @@ func (s InvalidParameterException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidParameterException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidParameterException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Processing has reached an invalid state.
 type InvalidStateException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2769,7 +2773,7 @@ func (s InvalidStateException) GoString() string {
 
 func newErrorInvalidStateException(v protocol.ResponseMetadata) error {
 	return &InvalidStateException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2797,19 +2801,19 @@ func (s InvalidStateException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidStateException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidStateException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // One or both of the values that make up the key-value pair is not valid. For
 // example, you cannot specify a tag value that begins with aws:.
 type InvalidTagException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2826,7 +2830,7 @@ func (s InvalidTagException) GoString() string {
 
 func newErrorInvalidTagException(v protocol.ResponseMetadata) error {
 	return &InvalidTagException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2854,12 +2858,12 @@ func (s InvalidTagException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidTagException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidTagException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The Key Usage X.509 v3 extension defines the purpose of the public key contained
@@ -2887,10 +2891,10 @@ func (s *KeyUsage) SetName(v string) *KeyUsage {
 	return s
 }
 
-// An ACM limit has been exceeded.
+// An ACM quota has been exceeded.
 type LimitExceededException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -2907,7 +2911,7 @@ func (s LimitExceededException) GoString() string {
 
 func newErrorLimitExceededException(v protocol.ResponseMetadata) error {
 	return &LimitExceededException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2935,12 +2939,12 @@ func (s LimitExceededException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s LimitExceededException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s LimitExceededException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type ListCertificatesInput struct {
@@ -3379,9 +3383,9 @@ type RequestCertificateInput struct {
 	// of the ACM certificate. For example, add the name www.example.net to a certificate
 	// for which the DomainName field is www.example.com if users can reach your
 	// site by using either name. The maximum number of domain names that you can
-	// add to an ACM certificate is 100. However, the initial limit is 10 domain
-	// names. If you need more than 10 names, you must request a limit increase.
-	// For more information, see Limits (https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html).
+	// add to an ACM certificate is 100. However, the initial quota is 10 domain
+	// names. If you need more than 10 names, you must request a quota increase.
+	// For more information, see Quotas (https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html).
 	//
 	// The maximum length of a SAN DNS name is 253 octets. The name is made up of
 	// multiple labels separated by periods. No label can be longer than 63 octets.
@@ -3547,8 +3551,8 @@ func (s *RequestCertificateOutput) SetCertificateArn(v string) *RequestCertifica
 // The certificate request is in process and the certificate in your account
 // has not yet been issued.
 type RequestInProgressException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -3565,7 +3569,7 @@ func (s RequestInProgressException) GoString() string {
 
 func newErrorRequestInProgressException(v protocol.ResponseMetadata) error {
 	return &RequestInProgressException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -3593,12 +3597,12 @@ func (s RequestInProgressException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s RequestInProgressException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s RequestInProgressException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type ResendValidationEmailInput struct {
@@ -3715,8 +3719,8 @@ func (s ResendValidationEmailOutput) GoString() string {
 // The certificate is in use by another AWS service in the caller's account.
 // Remove the association and try again.
 type ResourceInUseException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -3733,7 +3737,7 @@ func (s ResourceInUseException) GoString() string {
 
 func newErrorResourceInUseException(v protocol.ResponseMetadata) error {
 	return &ResourceInUseException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -3761,19 +3765,19 @@ func (s ResourceInUseException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceInUseException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceInUseException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The specified certificate cannot be found in the caller's account or the
 // caller's account cannot be found.
 type ResourceNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -3790,7 +3794,7 @@ func (s ResourceNotFoundException) GoString() string {
 
 func newErrorResourceNotFoundException(v protocol.ResponseMetadata) error {
 	return &ResourceNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -3818,12 +3822,12 @@ func (s ResourceNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Contains a DNS record value that you can use to can use to validate ownership
@@ -3930,8 +3934,8 @@ func (s *Tag) SetValue(v string) *Tag {
 
 // A specified tag did not comply with an existing tag policy and was rejected.
 type TagPolicyException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -3948,7 +3952,7 @@ func (s TagPolicyException) GoString() string {
 
 func newErrorTagPolicyException(v protocol.ResponseMetadata) error {
 	return &TagPolicyException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -3976,18 +3980,18 @@ func (s TagPolicyException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s TagPolicyException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s TagPolicyException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The request contains too many tags. Try the request again with fewer tags.
 type TooManyTagsException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -4004,7 +4008,7 @@ func (s TooManyTagsException) GoString() string {
 
 func newErrorTooManyTagsException(v protocol.ResponseMetadata) error {
 	return &TooManyTagsException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -4032,12 +4036,12 @@ func (s TooManyTagsException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s TooManyTagsException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s TooManyTagsException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type UpdateCertificateOptionsInput struct {

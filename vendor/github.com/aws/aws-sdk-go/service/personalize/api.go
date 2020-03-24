@@ -4662,6 +4662,9 @@ type BatchInferenceJobSummary struct {
 	// The time at which the batch inference job was last updated.
 	LastUpdatedDateTime *time.Time `locationName:"lastUpdatedDateTime" type:"timestamp"`
 
+	// The ARN of the solution version used by the batch inference job.
+	SolutionVersionArn *string `locationName:"solutionVersionArn" type:"string"`
+
 	// The status of the batch inference job. The status is one of the following
 	// values:
 	//
@@ -4712,6 +4715,12 @@ func (s *BatchInferenceJobSummary) SetJobName(v string) *BatchInferenceJobSummar
 // SetLastUpdatedDateTime sets the LastUpdatedDateTime field's value.
 func (s *BatchInferenceJobSummary) SetLastUpdatedDateTime(v time.Time) *BatchInferenceJobSummary {
 	s.LastUpdatedDateTime = &v
+	return s
+}
+
+// SetSolutionVersionArn sets the SolutionVersionArn field's value.
+func (s *BatchInferenceJobSummary) SetSolutionVersionArn(v string) *BatchInferenceJobSummary {
+	s.SolutionVersionArn = &v
 	return s
 }
 
@@ -8310,7 +8319,7 @@ type HPOObjective struct {
 	// A regular expression for finding the metric in the training job logs.
 	MetricRegex *string `locationName:"metricRegex" type:"string"`
 
-	// The data type of the metric.
+	// The type of the metric. Valid values are Maximize and Minimize.
 	Type *string `locationName:"type" type:"string"`
 }
 
@@ -8507,8 +8516,8 @@ func (s *IntegerHyperParameterRange) SetName(v string) *IntegerHyperParameterRan
 
 // Provide a valid value for the field or parameter.
 type InvalidInputException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -8525,7 +8534,7 @@ func (s InvalidInputException) GoString() string {
 
 func newErrorInvalidInputException(v protocol.ResponseMetadata) error {
 	return &InvalidInputException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -8553,18 +8562,18 @@ func (s InvalidInputException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidInputException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidInputException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The token is not valid.
 type InvalidNextTokenException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -8581,7 +8590,7 @@ func (s InvalidNextTokenException) GoString() string {
 
 func newErrorInvalidNextTokenException(v protocol.ResponseMetadata) error {
 	return &InvalidNextTokenException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -8609,18 +8618,18 @@ func (s InvalidNextTokenException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidNextTokenException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidNextTokenException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The limit on the number of requests per second has been exceeded.
 type LimitExceededException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -8637,7 +8646,7 @@ func (s LimitExceededException) GoString() string {
 
 func newErrorLimitExceededException(v protocol.ResponseMetadata) error {
 	return &LimitExceededException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -8665,12 +8674,12 @@ func (s LimitExceededException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s LimitExceededException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s LimitExceededException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type ListBatchInferenceJobsInput struct {
@@ -9699,8 +9708,8 @@ func (s *RecipeSummary) SetStatus(v string) *RecipeSummary {
 
 // The specified resource already exists.
 type ResourceAlreadyExistsException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -9717,7 +9726,7 @@ func (s ResourceAlreadyExistsException) GoString() string {
 
 func newErrorResourceAlreadyExistsException(v protocol.ResponseMetadata) error {
 	return &ResourceAlreadyExistsException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -9745,18 +9754,18 @@ func (s ResourceAlreadyExistsException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceAlreadyExistsException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceAlreadyExistsException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The specified resource is in use.
 type ResourceInUseException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -9773,7 +9782,7 @@ func (s ResourceInUseException) GoString() string {
 
 func newErrorResourceInUseException(v protocol.ResponseMetadata) error {
 	return &ResourceInUseException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -9801,18 +9810,18 @@ func (s ResourceInUseException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceInUseException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceInUseException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Could not find the specified resource.
 type ResourceNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -9829,7 +9838,7 @@ func (s ResourceNotFoundException) GoString() string {
 
 func newErrorResourceNotFoundException(v protocol.ResponseMetadata) error {
 	return &ResourceNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -9857,12 +9866,12 @@ func (s ResourceNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The configuration details of an Amazon S3 input or output bucket.
@@ -10275,6 +10284,10 @@ type SolutionVersion struct {
 	// The UPDATE option can only be used after you've created a solution version
 	// with the FULL option and the training solution uses the native-recipe-hrnn-coldstart.
 	TrainingMode *string `locationName:"trainingMode" type:"string" enum:"TrainingMode"`
+
+	// If hyperparameter optimization was performed, contains the hyperparameter
+	// values of the best performing model.
+	TunedHPOParams *TunedHPOParams `locationName:"tunedHPOParams" type:"structure"`
 }
 
 // String returns the string representation
@@ -10371,6 +10384,12 @@ func (s *SolutionVersion) SetTrainingMode(v string) *SolutionVersion {
 	return s
 }
 
+// SetTunedHPOParams sets the TunedHPOParams field's value.
+func (s *SolutionVersion) SetTunedHPOParams(v *TunedHPOParams) *SolutionVersion {
+	s.TunedHPOParams = v
+	return s
+}
+
 // Provides a summary of the properties of a solution version. For a complete
 // listing, call the DescribeSolutionVersion API.
 type SolutionVersionSummary struct {
@@ -10433,6 +10452,31 @@ func (s *SolutionVersionSummary) SetSolutionVersionArn(v string) *SolutionVersio
 // SetStatus sets the Status field's value.
 func (s *SolutionVersionSummary) SetStatus(v string) *SolutionVersionSummary {
 	s.Status = &v
+	return s
+}
+
+// If hyperparameter optimization (HPO) was performed, contains the hyperparameter
+// values of the best performing model.
+type TunedHPOParams struct {
+	_ struct{} `type:"structure"`
+
+	// A list of the hyperparameter values of the best performing model.
+	AlgorithmHyperParameters map[string]*string `locationName:"algorithmHyperParameters" type:"map"`
+}
+
+// String returns the string representation
+func (s TunedHPOParams) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s TunedHPOParams) GoString() string {
+	return s.String()
+}
+
+// SetAlgorithmHyperParameters sets the AlgorithmHyperParameters field's value.
+func (s *TunedHPOParams) SetAlgorithmHyperParameters(v map[string]*string) *TunedHPOParams {
+	s.AlgorithmHyperParameters = v
 	return s
 }
 

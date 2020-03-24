@@ -1006,7 +1006,8 @@ func (c *Athena) ListNamedQueriesRequest(input *ListNamedQueriesInput) (req *req
 // ListNamedQueries API operation for Amazon Athena.
 //
 // Provides a list of available query IDs only for queries saved in the specified
-// workgroup. Requires that you have access to the workgroup.
+// workgroup. Requires that you have access to the workgroup. If a workgroup
+// is not specified, lists the saved queries for the primary workgroup.
 //
 // For code samples using the AWS SDK for Java, see Examples and Code Samples
 // (http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in the Amazon
@@ -1153,8 +1154,9 @@ func (c *Athena) ListQueryExecutionsRequest(input *ListQueryExecutionsInput) (re
 // ListQueryExecutions API operation for Amazon Athena.
 //
 // Provides a list of available query execution IDs for the queries in the specified
-// workgroup. Requires you to have access to the workgroup in which the queries
-// ran.
+// workgroup. If a workgroup is not specified, returns a list of query execution
+// IDs for the primary workgroup. Requires you to have access to the workgroup
+// in which the queries ran.
 //
 // For code samples using the AWS SDK for Java, see Examples and Code Samples
 // (http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in the Amazon
@@ -2901,8 +2903,8 @@ func (s *GetWorkGroupOutput) SetWorkGroup(v *WorkGroup) *GetWorkGroupOutput {
 // Indicates a platform issue, which may be due to a transient condition or
 // outage.
 type InternalServerException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"Message" type:"string"`
 }
@@ -2919,7 +2921,7 @@ func (s InternalServerException) GoString() string {
 
 func newErrorInternalServerException(v protocol.ResponseMetadata) error {
 	return &InternalServerException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -2947,19 +2949,19 @@ func (s InternalServerException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InternalServerException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InternalServerException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Indicates that something is wrong with the input to the request. For example,
 // a required parameter may be missing or out of range.
 type InvalidRequestException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	// The error code returned when the query execution failed to process, or when
 	// the processing request for the named query failed.
@@ -2980,7 +2982,7 @@ func (s InvalidRequestException) GoString() string {
 
 func newErrorInvalidRequestException(v protocol.ResponseMetadata) error {
 	return &InvalidRequestException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -3008,12 +3010,12 @@ func (s InvalidRequestException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidRequestException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidRequestException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type ListNamedQueriesInput struct {
@@ -3026,7 +3028,9 @@ type ListNamedQueriesInput struct {
 	// was truncated.
 	NextToken *string `min:"1" type:"string"`
 
-	// The name of the workgroup from which the named queries are being returned.
+	// The name of the workgroup from which the named queries are returned. If a
+	// workgroup is not specified, the saved queries for the primary workgroup are
+	// returned.
 	WorkGroup *string `type:"string"`
 }
 
@@ -3113,7 +3117,9 @@ type ListQueryExecutionsInput struct {
 	// was truncated.
 	NextToken *string `min:"1" type:"string"`
 
-	// The name of the workgroup from which queries are being returned.
+	// The name of the workgroup from which queries are returned. If a workgroup
+	// is not specified, a list of available query execution IDs for the queries
+	// in the primary workgroup is returned.
 	WorkGroup *string `type:"string"`
 }
 
@@ -3473,8 +3479,9 @@ type QueryExecution struct {
 	// and DML, such as SHOW CREATE TABLE, or DESCRIBE <table>.
 	StatementType *string `type:"string" enum:"StatementType"`
 
-	// The amount of data scanned during the query execution and the amount of time
-	// that it took to execute, and the type of statement that was run.
+	// Query execution statistics, such as the amount of data scanned, the amount
+	// of time that the query took to process, and the type of statement that was
+	// run.
 	Statistics *QueryExecutionStatistics `type:"structure"`
 
 	// The completion date, current state, submission time, and state change reason
@@ -3680,12 +3687,12 @@ type QueryExecutionStatus struct {
 	// The date and time that the query completed.
 	CompletionDateTime *time.Time `type:"timestamp"`
 
-	// The state of query execution. QUEUED state is listed but is not used by Athena
-	// and is reserved for future use. RUNNING indicates that the query has been
-	// submitted to the service, and Athena will execute the query as soon as resources
-	// are available. SUCCEEDED indicates that the query completed without errors.
-	// FAILED indicates that the query experienced an error and did not complete
-	// processing. CANCELLED indicates that a user input interrupted query execution.
+	// The state of query execution. QUEUED indicates that the query has been submitted
+	// to the service, and Athena will execute the query as soon as resources are
+	// available. RUNNING indicates that the query is in execution phase. SUCCEEDED
+	// indicates that the query completed without errors. FAILED indicates that
+	// the query experienced an error and did not complete processing. CANCELLED
+	// indicates that a user input interrupted query execution.
 	State *string `type:"string" enum:"QueryExecutionState"`
 
 	// Further detail about the status of the query.
@@ -3731,8 +3738,8 @@ func (s *QueryExecutionStatus) SetSubmissionDateTime(v time.Time) *QueryExecutio
 
 // A resource, such as a workgroup, was not found.
 type ResourceNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"Message" type:"string"`
 
@@ -3751,7 +3758,7 @@ func (s ResourceNotFoundException) GoString() string {
 
 func newErrorResourceNotFoundException(v protocol.ResponseMetadata) error {
 	return &ResourceNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -3779,12 +3786,12 @@ func (s ResourceNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The location in Amazon S3 where query results are stored and the encryption
@@ -4324,8 +4331,8 @@ func (s TagResourceOutput) GoString() string {
 
 // Indicates that the request was throttled.
 type TooManyRequestsException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"Message" type:"string"`
 
@@ -4346,7 +4353,7 @@ func (s TooManyRequestsException) GoString() string {
 
 func newErrorTooManyRequestsException(v protocol.ResponseMetadata) error {
 	return &TooManyRequestsException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -4374,12 +4381,12 @@ func (s TooManyRequestsException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s TooManyRequestsException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s TooManyRequestsException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Information about a named query ID that could not be processed.

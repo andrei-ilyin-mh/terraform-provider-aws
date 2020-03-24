@@ -256,7 +256,7 @@ func (c *ECS) CreateServiceRequest(input *CreateServiceInput) (req *request.Requ
 // Runs and maintains a desired number of tasks from a specified task definition.
 // If the number of tasks running in a service drops below the desiredCount,
 // Amazon ECS runs another copy of the task in the specified cluster. To update
-// an existing service, see UpdateService.
+// an existing service, see the UpdateService action.
 //
 // In addition to maintaining the desired count of tasks in your service, you
 // can optionally run your service behind one or more load balancers. The load
@@ -5516,8 +5516,8 @@ func (c *ECS) UpdateTaskSetWithContext(ctx aws.Context, input *UpdateTaskSetInpu
 
 // You do not have authorization to perform the requested action.
 type AccessDeniedException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -5534,7 +5534,7 @@ func (s AccessDeniedException) GoString() string {
 
 func newErrorAccessDeniedException(v protocol.ResponseMetadata) error {
 	return &AccessDeniedException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -5562,12 +5562,12 @@ func (s AccessDeniedException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s AccessDeniedException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s AccessDeniedException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // An object representing a container instance or task attachment.
@@ -5756,8 +5756,8 @@ func (s *Attribute) SetValue(v string) *Attribute {
 // of a resource with ListAttributes. You can remove existing attributes on
 // a resource with DeleteAttributes.
 type AttributeLimitExceededException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -5774,7 +5774,7 @@ func (s AttributeLimitExceededException) GoString() string {
 
 func newErrorAttributeLimitExceededException(v protocol.ResponseMetadata) error {
 	return &AttributeLimitExceededException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -5802,12 +5802,12 @@ func (s AttributeLimitExceededException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s AttributeLimitExceededException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s AttributeLimitExceededException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The details of the Auto Scaling group for the capacity provider.
@@ -5955,8 +5955,8 @@ func (s *AwsVpcConfiguration) SetSubnets(v []*string) *AwsVpcConfiguration {
 // Your AWS account has been blocked. For more information, contact AWS Support
 // (http://aws.amazon.com/contact-us/).
 type BlockedException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -5973,7 +5973,7 @@ func (s BlockedException) GoString() string {
 
 func newErrorBlockedException(v protocol.ResponseMetadata) error {
 	return &BlockedException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6001,12 +6001,12 @@ func (s BlockedException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s BlockedException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s BlockedException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The details of a capacity provider.
@@ -6166,8 +6166,8 @@ func (s *CapacityProviderStrategyItem) SetWeight(v int64) *CapacityProviderStrat
 // or resource on behalf of a user that doesn't have permissions to use the
 // action or resource, or specifying an identifier that is not valid.
 type ClientException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -6184,7 +6184,7 @@ func (s ClientException) GoString() string {
 
 func newErrorClientException(v protocol.ResponseMetadata) error {
 	return &ClientException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6212,12 +6212,12 @@ func (s ClientException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ClientException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ClientException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // A regional grouping of one or more container instances on which you can run
@@ -6462,8 +6462,8 @@ func (s *Cluster) SetTags(v []*Tag) *Cluster {
 // deregister the container instances before you can delete the cluster. For
 // more information, see DeregisterContainerInstance.
 type ClusterContainsContainerInstancesException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -6480,7 +6480,7 @@ func (s ClusterContainsContainerInstancesException) GoString() string {
 
 func newErrorClusterContainsContainerInstancesException(v protocol.ResponseMetadata) error {
 	return &ClusterContainsContainerInstancesException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6508,20 +6508,20 @@ func (s ClusterContainsContainerInstancesException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ClusterContainsContainerInstancesException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ClusterContainsContainerInstancesException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // You cannot delete a cluster that contains services. First, update the service
 // to reduce its desired task count to 0 and then delete the service. For more
 // information, see UpdateService and DeleteService.
 type ClusterContainsServicesException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -6538,7 +6538,7 @@ func (s ClusterContainsServicesException) GoString() string {
 
 func newErrorClusterContainsServicesException(v protocol.ResponseMetadata) error {
 	return &ClusterContainsServicesException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6566,18 +6566,18 @@ func (s ClusterContainsServicesException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ClusterContainsServicesException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ClusterContainsServicesException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // You cannot delete a cluster that has active tasks.
 type ClusterContainsTasksException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -6594,7 +6594,7 @@ func (s ClusterContainsTasksException) GoString() string {
 
 func newErrorClusterContainsTasksException(v protocol.ResponseMetadata) error {
 	return &ClusterContainsTasksException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6622,19 +6622,19 @@ func (s ClusterContainsTasksException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ClusterContainsTasksException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ClusterContainsTasksException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The specified cluster could not be found. You can view your available clusters
 // with ListClusters. Amazon ECS clusters are Region-specific.
 type ClusterNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -6651,7 +6651,7 @@ func (s ClusterNotFoundException) GoString() string {
 
 func newErrorClusterNotFoundException(v protocol.ResponseMetadata) error {
 	return &ClusterNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6679,12 +6679,12 @@ func (s ClusterNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ClusterNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ClusterNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The settings to use when creating a cluster. This parameter is used to enable
@@ -7327,10 +7327,19 @@ type ContainerDefinition struct {
 	// give up and not start. This results in the task transitioning to a STOPPED
 	// state.
 	//
-	// For tasks using the EC2 launch type, the container instances require at least
-	// version 1.26.0 of the container agent to enable a container start timeout
-	// value. However, we recommend using the latest container agent version. For
-	// information about checking your agent version and updating to the latest
+	// For tasks using the Fargate launch type, this parameter requires that the
+	// task or service uses platform version 1.3.0 or later. If this parameter is
+	// not specified, the default value of 3 minutes is used.
+	//
+	// For tasks using the EC2 launch type, if the startTimeout parameter is not
+	// specified, the value set for the Amazon ECS container agent configuration
+	// variable ECS_CONTAINER_START_TIMEOUT is used by default. If neither the startTimeout
+	// parameter or the ECS_CONTAINER_START_TIMEOUT agent configuration variable
+	// are set, then the default values of 3 minutes for Linux containers and 8
+	// minutes on Windows containers are used. Your container instances require
+	// at least version 1.26.0 of the container agent to enable a container start
+	// timeout value. However, we recommend using the latest container agent version.
+	// For information about checking your agent version and updating to the latest
 	// version, see Updating the Amazon ECS Container Agent (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
 	// in the Amazon Elastic Container Service Developer Guide. If you are using
 	// an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1
@@ -7339,24 +7348,25 @@ type ContainerDefinition struct {
 	// agent and ecs-init. For more information, see Amazon ECS-optimized Linux
 	// AMI (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-	//
-	// For tasks using the Fargate launch type, the task or service requires platform
-	// version 1.3.0 or later.
 	StartTimeout *int64 `locationName:"startTimeout" type:"integer"`
 
 	// Time duration (in seconds) to wait before the container is forcefully killed
 	// if it doesn't exit normally on its own.
 	//
-	// For tasks using the Fargate launch type, the max stopTimeout value is 2 minutes
-	// and the task or service requires platform version 1.3.0 or later.
+	// For tasks using the Fargate launch type, the task or service requires platform
+	// version 1.3.0 or later. The max stop timeout value is 120 seconds and if
+	// the parameter is not specified, the default value of 30 seconds is used.
 	//
-	// For tasks using the EC2 launch type, the stop timeout value for the container
-	// takes precedence over the ECS_CONTAINER_STOP_TIMEOUT container agent configuration
-	// parameter, if used. Container instances require at least version 1.26.0 of
-	// the container agent to enable a container stop timeout value. However, we
-	// recommend using the latest container agent version. For information about
-	// checking your agent version and updating to the latest version, see Updating
-	// the Amazon ECS Container Agent (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
+	// For tasks using the EC2 launch type, if the stopTimeout parameter is not
+	// specified, the value set for the Amazon ECS container agent configuration
+	// variable ECS_CONTAINER_STOP_TIMEOUT is used by default. If neither the stopTimeout
+	// parameter or the ECS_CONTAINER_STOP_TIMEOUT agent configuration variable
+	// are set, then the default values of 30 seconds for Linux containers and 30
+	// seconds on Windows containers are used. Your container instances require
+	// at least version 1.26.0 of the container agent to enable a container stop
+	// timeout value. However, we recommend using the latest container agent version.
+	// For information about checking your agent version and updating to the latest
+	// version, see Updating the Amazon ECS Container Agent (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
 	// in the Amazon Elastic Container Service Developer Guide. If you are using
 	// an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1
 	// of the ecs-init package. If your container instances are launched from version
@@ -8631,13 +8641,16 @@ type CreateServiceInput struct {
 
 	// The period of time, in seconds, that the Amazon ECS service scheduler should
 	// ignore unhealthy Elastic Load Balancing target health checks after a task
-	// has first started. This is only valid if your service is configured to use
-	// a load balancer. If your service's tasks take a while to start and respond
-	// to Elastic Load Balancing health checks, you can specify a health check grace
-	// period of up to 2,147,483,647 seconds. During that time, the ECS service
-	// scheduler ignores health check status. This grace period can prevent the
-	// ECS service scheduler from marking tasks as unhealthy and stopping them before
-	// they have time to come up.
+	// has first started. This is only used when your service is configured to use
+	// a load balancer. If your service has a load balancer defined and you don't
+	// specify a health check grace period value, the default value of 0 is used.
+	//
+	// If your service's tasks take a while to start and respond to Elastic Load
+	// Balancing health checks, you can specify a health check grace period of up
+	// to 2,147,483,647 seconds. During that time, the Amazon ECS service scheduler
+	// ignores health check status. This grace period can prevent the service scheduler
+	// from marking tasks as unhealthy and stopping them before they have time to
+	// come up.
 	HealthCheckGracePeriodSeconds *int64 `locationName:"healthCheckGracePeriodSeconds" type:"integer"`
 
 	// The launch type on which to run your service. For more information, see Amazon
@@ -11514,8 +11527,8 @@ func (s *InferenceAcceleratorOverride) SetDeviceType(v string) *InferenceAcceler
 // The specified parameter is invalid. Review the available parameters for the
 // API request.
 type InvalidParameterException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -11532,7 +11545,7 @@ func (s InvalidParameterException) GoString() string {
 
 func newErrorInvalidParameterException(v protocol.ResponseMetadata) error {
 	return &InvalidParameterException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -11560,12 +11573,12 @@ func (s InvalidParameterException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s InvalidParameterException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s InvalidParameterException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The Linux capabilities for the container that are added to or dropped from
@@ -11673,8 +11686,8 @@ func (s *KeyValuePair) SetValue(v string) *KeyValuePair {
 
 // The limit for the resource has been exceeded.
 type LimitExceededException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -11691,7 +11704,7 @@ func (s LimitExceededException) GoString() string {
 
 func newErrorLimitExceededException(v protocol.ResponseMetadata) error {
 	return &LimitExceededException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -11719,12 +11732,12 @@ func (s LimitExceededException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s LimitExceededException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s LimitExceededException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Linux-specific options that are applied to the container, such as Linux KernelCapabilities.
@@ -12884,8 +12897,10 @@ func (s *ListTasksOutput) SetTaskArns(v []*string) *ListTasksOutput {
 	return s
 }
 
-// Details on the load balancer or load balancers to use with a service or task
-// set.
+// The load balancer configuration to use with a service or task set.
+//
+// For specific notes and restrictions regarding the use of load balancers with
+// services and task sets, see the CreateService and CreateTaskSet actions.
 type LoadBalancer struct {
 	_ struct{} `type:"structure"`
 
@@ -12905,15 +12920,15 @@ type LoadBalancer struct {
 	//
 	// A load balancer name is only specified when using a Classic Load Balancer.
 	// If you are using an Application Load Balancer or a Network Load Balancer
-	// this should be omitted.
+	// the load balancer name parameter should be omitted.
 	LoadBalancerName *string `locationName:"loadBalancerName" type:"string"`
 
 	// The full Amazon Resource Name (ARN) of the Elastic Load Balancing target
 	// group or groups associated with a service or task set.
 	//
 	// A target group ARN is only specified when using an Application Load Balancer
-	// or Network Load Balancer. If you are using a Classic Load Balancer this should
-	// be omitted.
+	// or Network Load Balancer. If you are using a Classic Load Balancer the target
+	// group ARN should be omitted.
 	//
 	// For services using the ECS deployment controller, you can specify one or
 	// multiple target groups. For more information, see Registering Multiple Target
@@ -13191,8 +13206,8 @@ func (s *ManagedScaling) SetTargetCapacity(v int64) *ManagedScaling {
 // with an update. This could be because the agent running on the container
 // instance is an older or custom version that does not use our version information.
 type MissingVersionException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -13209,7 +13224,7 @@ func (s MissingVersionException) GoString() string {
 
 func newErrorMissingVersionException(v protocol.ResponseMetadata) error {
 	return &MissingVersionException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -13237,12 +13252,12 @@ func (s MissingVersionException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s MissingVersionException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s MissingVersionException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Details on a volume mount point that is used in a container definition.
@@ -13432,8 +13447,8 @@ func (s *NetworkInterface) SetPrivateIpv4Address(v string) *NetworkInterface {
 // be because the agent is already running the latest version, or it is so old
 // that there is no update path to the current version.
 type NoUpdateAvailableException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -13450,7 +13465,7 @@ func (s NoUpdateAvailableException) GoString() string {
 
 func newErrorNoUpdateAvailableException(v protocol.ResponseMetadata) error {
 	return &NoUpdateAvailableException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -13478,12 +13493,12 @@ func (s NoUpdateAvailableException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s NoUpdateAvailableException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s NoUpdateAvailableException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // An object representing a constraint on task placement. For more information,
@@ -13635,8 +13650,8 @@ func (s *PlatformDevice) SetType(v string) *PlatformDevice {
 // The specified platform version does not satisfy the task definition's required
 // capabilities.
 type PlatformTaskDefinitionIncompatibilityException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -13653,7 +13668,7 @@ func (s PlatformTaskDefinitionIncompatibilityException) GoString() string {
 
 func newErrorPlatformTaskDefinitionIncompatibilityException(v protocol.ResponseMetadata) error {
 	return &PlatformTaskDefinitionIncompatibilityException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -13681,18 +13696,18 @@ func (s PlatformTaskDefinitionIncompatibilityException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s PlatformTaskDefinitionIncompatibilityException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s PlatformTaskDefinitionIncompatibilityException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The specified platform version does not exist.
 type PlatformUnknownException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -13709,7 +13724,7 @@ func (s PlatformUnknownException) GoString() string {
 
 func newErrorPlatformUnknownException(v protocol.ResponseMetadata) error {
 	return &PlatformUnknownException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -13737,12 +13752,12 @@ func (s PlatformUnknownException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s PlatformUnknownException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s PlatformUnknownException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Port mappings allow containers to access ports on the host container instance
@@ -15065,8 +15080,8 @@ func (s *Resource) SetType(v string) *Resource {
 
 // The specified resource is in-use and cannot be removed.
 type ResourceInUseException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -15083,7 +15098,7 @@ func (s ResourceInUseException) GoString() string {
 
 func newErrorResourceInUseException(v protocol.ResponseMetadata) error {
 	return &ResourceInUseException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -15111,18 +15126,18 @@ func (s ResourceInUseException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceInUseException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceInUseException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The specified resource could not be found.
 type ResourceNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -15139,7 +15154,7 @@ func (s ResourceNotFoundException) GoString() string {
 
 func newErrorResourceNotFoundException(v protocol.ResponseMetadata) error {
 	return &ResourceNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -15167,12 +15182,12 @@ func (s ResourceNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ResourceNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ResourceNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The type and amount of a resource to assign to a container. The supported
@@ -15676,8 +15691,8 @@ func (s *Secret) SetValueFrom(v string) *Secret {
 
 // These errors are usually caused by a server issue.
 type ServerException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -15694,7 +15709,7 @@ func (s ServerException) GoString() string {
 
 func newErrorServerException(v protocol.ResponseMetadata) error {
 	return &ServerException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -15722,12 +15737,12 @@ func (s ServerException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ServerException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ServerException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Details on a service within a cluster
@@ -16123,8 +16138,8 @@ func (s *ServiceEvent) SetMessage(v string) *ServiceEvent {
 // The specified service is not active. You can't update a service that is inactive.
 // If you have previously deleted a service, you can re-create it with CreateService.
 type ServiceNotActiveException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -16141,7 +16156,7 @@ func (s ServiceNotActiveException) GoString() string {
 
 func newErrorServiceNotActiveException(v protocol.ResponseMetadata) error {
 	return &ServiceNotActiveException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -16169,19 +16184,19 @@ func (s ServiceNotActiveException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ServiceNotActiveException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ServiceNotActiveException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The specified service could not be found. You can view your available services
 // with ListServices. Amazon ECS services are cluster-specific and Region-specific.
 type ServiceNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -16198,7 +16213,7 @@ func (s ServiceNotFoundException) GoString() string {
 
 func newErrorServiceNotFoundException(v protocol.ResponseMetadata) error {
 	return &ServiceNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -16226,12 +16241,12 @@ func (s ServiceNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ServiceNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ServiceNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Details of the service registry.
@@ -17223,8 +17238,8 @@ func (s TagResourceOutput) GoString() string {
 // instances with ListContainerInstances. Amazon ECS container instances are
 // cluster-specific and Region-specific.
 type TargetNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -17241,7 +17256,7 @@ func (s TargetNotFoundException) GoString() string {
 
 func newErrorTargetNotFoundException(v protocol.ResponseMetadata) error {
 	return &TargetNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -17269,12 +17284,12 @@ func (s TargetNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s TargetNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s TargetNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Details on a task in a cluster.
@@ -18490,8 +18505,8 @@ func (s *TaskSet) SetUpdatedAt(v time.Time) *TaskSet {
 // sets with DescribeTaskSets. Task sets are specific to each cluster, service
 // and Region.
 type TaskSetNotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -18508,7 +18523,7 @@ func (s TaskSetNotFoundException) GoString() string {
 
 func newErrorTaskSetNotFoundException(v protocol.ResponseMetadata) error {
 	return &TaskSetNotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -18536,12 +18551,12 @@ func (s TaskSetNotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s TaskSetNotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s TaskSetNotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The container path, mount options, and size of the tmpfs mount.
@@ -18682,8 +18697,8 @@ func (s *Ulimit) SetSoftLimit(v int64) *Ulimit {
 
 // The specified task is not supported in this Region.
 type UnsupportedFeatureException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -18700,7 +18715,7 @@ func (s UnsupportedFeatureException) GoString() string {
 
 func newErrorUnsupportedFeatureException(v protocol.ResponseMetadata) error {
 	return &UnsupportedFeatureException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -18728,12 +18743,12 @@ func (s UnsupportedFeatureException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s UnsupportedFeatureException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s UnsupportedFeatureException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type UntagResourceInput struct {
@@ -19064,8 +19079,8 @@ func (s *UpdateContainerInstancesStateOutput) SetFailures(v []*Failure) *UpdateC
 // process can get stuck in that state. However, when the agent reconnects,
 // it resumes where it stopped previously.
 type UpdateInProgressException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -19082,7 +19097,7 @@ func (s UpdateInProgressException) GoString() string {
 
 func newErrorUpdateInProgressException(v protocol.ResponseMetadata) error {
 	return &UpdateInProgressException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -19110,12 +19125,12 @@ func (s UpdateInProgressException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s UpdateInProgressException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s UpdateInProgressException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type UpdateServiceInput struct {
@@ -19162,6 +19177,25 @@ type UpdateServiceInput struct {
 
 	// An object representing the network configuration for a task or service.
 	NetworkConfiguration *NetworkConfiguration `locationName:"networkConfiguration" type:"structure"`
+
+	// An array of task placement constraint objects to update the service to use.
+	// If no value is specified, the existing placement constraints for the service
+	// will remain unchanged. If this value is specified, it will override any existing
+	// placement constraints defined for the service. To remove all existing placement
+	// constraints, specify an empty array.
+	//
+	// You can specify a maximum of 10 constraints per task (this limit includes
+	// constraints in the task definition and those specified at runtime).
+	PlacementConstraints []*PlacementConstraint `locationName:"placementConstraints" type:"list"`
+
+	// The task placement strategy objects to update the service to use. If no value
+	// is specified, the existing placement strategy for the service will remain
+	// unchanged. If this value is specified, it will override the existing placement
+	// strategy defined for the service. To remove an existing placement strategy,
+	// specify an empty object.
+	//
+	// You can specify a maximum of five strategy rules per service.
+	PlacementStrategy []*PlacementStrategy `locationName:"placementStrategy" type:"list"`
 
 	// The platform version on which your tasks in the service are running. A platform
 	// version is only specified for tasks using the Fargate launch type. If a platform
@@ -19260,6 +19294,18 @@ func (s *UpdateServiceInput) SetHealthCheckGracePeriodSeconds(v int64) *UpdateSe
 // SetNetworkConfiguration sets the NetworkConfiguration field's value.
 func (s *UpdateServiceInput) SetNetworkConfiguration(v *NetworkConfiguration) *UpdateServiceInput {
 	s.NetworkConfiguration = v
+	return s
+}
+
+// SetPlacementConstraints sets the PlacementConstraints field's value.
+func (s *UpdateServiceInput) SetPlacementConstraints(v []*PlacementConstraint) *UpdateServiceInput {
+	s.PlacementConstraints = v
+	return s
+}
+
+// SetPlacementStrategy sets the PlacementStrategy field's value.
+func (s *UpdateServiceInput) SetPlacementStrategy(v []*PlacementStrategy) *UpdateServiceInput {
+	s.PlacementStrategy = v
 	return s
 }
 

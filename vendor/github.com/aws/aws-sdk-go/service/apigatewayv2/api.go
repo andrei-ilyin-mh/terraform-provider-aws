@@ -6144,8 +6144,8 @@ func (c *ApiGatewayV2) UpdateVpcLinkWithContext(ctx aws.Context, input *UpdateVp
 }
 
 type AccessDeniedException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	Message_ *string `locationName:"message" type:"string"`
 }
@@ -6162,7 +6162,7 @@ func (s AccessDeniedException) GoString() string {
 
 func newErrorAccessDeniedException(v protocol.ResponseMetadata) error {
 	return &AccessDeniedException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6190,12 +6190,12 @@ func (s AccessDeniedException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s AccessDeniedException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s AccessDeniedException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Settings for logging access in a stage.
@@ -6574,8 +6574,8 @@ func (s *Authorizer) SetName(v string) *Authorizer {
 // The request is not valid, for example, the input is incomplete or incorrect.
 // See the accompanying error message for details.
 type BadRequestException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	// Describes the error encountered.
 	Message_ *string `locationName:"message" type:"string"`
@@ -6593,7 +6593,7 @@ func (s BadRequestException) GoString() string {
 
 func newErrorBadRequestException(v protocol.ResponseMetadata) error {
 	return &BadRequestException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6621,20 +6621,20 @@ func (s BadRequestException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s BadRequestException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s BadRequestException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // The requested operation would cause a conflict with the current state of
 // a service resource associated with the request. Resolve the conflict before
 // retrying this request. See the accompanying error message for details.
 type ConflictException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	// Describes the error encountered.
 	Message_ *string `locationName:"message" type:"string"`
@@ -6652,7 +6652,7 @@ func (s ConflictException) GoString() string {
 
 func newErrorConflictException(v protocol.ResponseMetadata) error {
 	return &ConflictException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -6680,12 +6680,12 @@ func (s ConflictException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s ConflictException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s ConflictException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Represents a CORS configuration. Supported only for HTTP APIs. See Configuring
@@ -7749,7 +7749,7 @@ type CreateIntegrationInput struct {
 	// for more information.
 	TemplateSelectionExpression *string `locationName:"templateSelectionExpression" type:"string"`
 
-	// An integer with a value between [50-29000].
+	// An integer with a value between [50-30000].
 	TimeoutInMillis *int64 `locationName:"timeoutInMillis" min:"50" type:"integer"`
 
 	// The TLS configuration for a private integration. If you specify a TLS configuration,
@@ -7953,7 +7953,7 @@ type CreateIntegrationOutput struct {
 	// for more information.
 	TemplateSelectionExpression *string `locationName:"templateSelectionExpression" type:"string"`
 
-	// An integer with a value between [50-29000].
+	// An integer with a value between [50-30000].
 	TimeoutInMillis *int64 `locationName:"timeoutInMillis" min:"50" type:"integer"`
 
 	// The TLS configuration for a private integration. If you specify a TLS configuration,
@@ -11818,7 +11818,7 @@ type GetIntegrationOutput struct {
 	// for more information.
 	TemplateSelectionExpression *string `locationName:"templateSelectionExpression" type:"string"`
 
-	// An integer with a value between [50-29000].
+	// An integer with a value between [50-30000].
 	TimeoutInMillis *int64 `locationName:"timeoutInMillis" min:"50" type:"integer"`
 
 	// The TLS configuration for a private integration. If you specify a TLS configuration,
@@ -13946,9 +13946,9 @@ type Integration struct {
 	// WebSocket APIs.
 	TemplateSelectionExpression *string `locationName:"templateSelectionExpression" type:"string"`
 
-	// Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000
-	// milliseconds or 29 seconds for WebSocket APIs. The default value is 5,000
-	// milliseconds, or 5 seconds for HTTP APIs.
+	// Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and
+	// between 50 and 30,000 milliseconds for HTTP APIs. The default timeout is
+	// 29 seconds for WebSocket APIs and 30 seconds for HTTP APIs.
 	TimeoutInMillis *int64 `locationName:"timeoutInMillis" min:"50" type:"integer"`
 
 	// The TLS configuration for a private integration. If you specify a TLS configuration,
@@ -14274,8 +14274,8 @@ func (s *Model) SetSchema(v string) *Model {
 // The resource specified in the request was not found. See the message field
 // for more information.
 type NotFoundException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	// Describes the error encountered.
 	Message_ *string `locationName:"message" type:"string"`
@@ -14296,7 +14296,7 @@ func (s NotFoundException) GoString() string {
 
 func newErrorNotFoundException(v protocol.ResponseMetadata) error {
 	return &NotFoundException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -14324,12 +14324,12 @@ func (s NotFoundException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s NotFoundException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s NotFoundException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 // Validation constraints imposed on parameters of a request (path, query string,
@@ -15113,8 +15113,8 @@ func (s *TlsConfigInput) SetServerNameToVerify(v string) *TlsConfigInput {
 
 // A limit has been exceeded. See the accompanying error message for details.
 type TooManyRequestsException struct {
-	_            struct{} `type:"structure"`
-	respMetadata protocol.ResponseMetadata
+	_            struct{}                  `type:"structure"`
+	RespMetadata protocol.ResponseMetadata `json:"-" xml:"-"`
 
 	LimitType *string `locationName:"limitType" type:"string"`
 
@@ -15133,7 +15133,7 @@ func (s TooManyRequestsException) GoString() string {
 
 func newErrorTooManyRequestsException(v protocol.ResponseMetadata) error {
 	return &TooManyRequestsException{
-		respMetadata: v,
+		RespMetadata: v,
 	}
 }
 
@@ -15161,12 +15161,12 @@ func (s TooManyRequestsException) Error() string {
 
 // Status code returns the HTTP status code for the request's response error.
 func (s TooManyRequestsException) StatusCode() int {
-	return s.respMetadata.StatusCode
+	return s.RespMetadata.StatusCode
 }
 
 // RequestID returns the service's response RequestID for request.
 func (s TooManyRequestsException) RequestID() string {
-	return s.respMetadata.RequestID
+	return s.RespMetadata.RequestID
 }
 
 type UntagResourceInput struct {
@@ -16204,7 +16204,7 @@ type UpdateIntegrationInput struct {
 	// for more information.
 	TemplateSelectionExpression *string `locationName:"templateSelectionExpression" type:"string"`
 
-	// An integer with a value between [50-29000].
+	// An integer with a value between [50-30000].
 	TimeoutInMillis *int64 `locationName:"timeoutInMillis" min:"50" type:"integer"`
 
 	// The TLS configuration for a private integration. If you specify a TLS configuration,
@@ -16417,7 +16417,7 @@ type UpdateIntegrationOutput struct {
 	// for more information.
 	TemplateSelectionExpression *string `locationName:"templateSelectionExpression" type:"string"`
 
-	// An integer with a value between [50-29000].
+	// An integer with a value between [50-30000].
 	TimeoutInMillis *int64 `locationName:"timeoutInMillis" min:"50" type:"integer"`
 
 	// The TLS configuration for a private integration. If you specify a TLS configuration,
